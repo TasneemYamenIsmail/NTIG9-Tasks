@@ -1,0 +1,42 @@
+{{>header}}
+{{>navbar}}
+<section class="container my-3">
+<div class="my-5">
+    <a class="btn btn-success" href="/add">Add Task</a>
+</div>
+
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#Id</th>
+      <th scope="col">title</th>
+      <th scope="col">content</th>
+      <th scope="col">date</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#if showEmpty}}
+      <tr>
+          <td colspan="6" class="alert alert-warning bg-warning text-center" >  No Data to Show</td>
+      </tr>
+      {{/if}}
+      {{#each allTasks}}
+    <tr>
+      <th scope="row">{{this._id}}</th>
+      <td>{{this.title}}</td>
+      <td>{{this.content}}</td>
+      <td>{{this.date}}</td>
+      <td>
+            <a class="btn btn-warning" href="/edit/{{this._id}}">Edit</a>
+      </td>
+       <td>
+            <a class="btn btn-danger" href="/delete/{{this._id}}">Delete</a>
+      </td>      
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</section>
+{{>footer}}
