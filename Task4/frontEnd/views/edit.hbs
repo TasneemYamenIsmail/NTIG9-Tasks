@@ -1,0 +1,52 @@
+{{>header}}
+{{>navbar}}
+<section class="container my-5">
+    <form method="post">
+        <div class="mb-3">
+            <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{customer.name}}" disabled>
+        </div>
+
+        {{#if isDisabledBalance}}
+             <div class="mb-3">
+                <input type="number" class="form-control" id="balance" placeholder="balance" name="balance" value="{{customer.balance}}" disabled>
+            </div>
+        {{else}}
+           <div class="mb-3">
+                <input type="number" class="form-control" id="balance" placeholder="balance" name="balance" value="{{customer.balance}}">
+            </div>
+        {{/if}}
+         
+        {{#switch type}}  
+            {{#case 1}} 
+            <div class="mb-3">
+               - <input type="number" class="form-control" id="withdrawal" placeholder="withdrawal" name="withdrawal">
+            </div> 
+            {{/case}}    
+            {{#case 2}}
+             <div class="mb-3">
+               + <input type="number" class="form-control" id="deposite" placeholder="deposite" name="deposite">
+            </div> 
+            {{/case}}
+        {{/switch}}
+
+        {{#if isDisabledStatus}}
+             <div class="mb-3">
+                <input type="text" class="form-control" id="status" placeholder="status" name="status" value="{{customer.status}}" disabled>
+            </div>
+        {{else}}
+            <div class="mb-3">
+                <input type="text" class="form-control" id="status" placeholder="status" name="status" value="{{customer.status}}">
+            </div>
+        {{/if}}
+       
+         <div class="mb-3">
+            <input type="submit" class="btn btn-success" value="Update Customer">
+        </div>
+        {{#if error}}
+          <div colspan="6" class="alert alert-danger bg-danger text-center text-white" > {{error}} </div>
+      {{/if}}
+    </form>
+</section>
+{{>footer}}
+
+ 

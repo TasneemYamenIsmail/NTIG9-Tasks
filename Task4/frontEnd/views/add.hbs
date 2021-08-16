@@ -1,0 +1,20 @@
+{{>header}}
+{{>navbar}}
+<section class="container my-5">
+    <form method="post">
+        <div class="mb-3">
+            <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{customer.name}}">
+        </div>
+         <div class="mb-3">
+            <input type="number" class="form-control" id="balance" placeholder="balance" name="balance" value="{{customer.balance}}">
+        </div>
+         <div class="mb-3">
+            <input type="submit" class="btn btn-success" value="Add">
+        </div>
+         {{#if error}}
+          <div colspan="6" class="alert alert-danger bg-danger text-center text-white" > {{error}} </div>
+      {{/if}}
+    </form>
+   
+</section>
+{{>footer}}

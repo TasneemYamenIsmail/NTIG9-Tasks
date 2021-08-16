@@ -1,0 +1,55 @@
+{{>header}}
+{{>navbar}}
+<section class="container my-3">
+<div class="my-5">
+    <a class="btn btn-success" href="/add">Add Customer</a>
+</div>
+
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#AccNum</th>
+      <th scope="col">Name</th>
+      <th scope="col">Balance</th>
+      <th scope="col">Status</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Deposite</th>
+      <th scope="col">Withdraw</th>
+      <th scope="col">Change Status</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#if showEmpty}}
+      <tr>
+          <td colspan="12" class="alert alert-warning bg-warning text-center" >  No Data to Show</td>
+      </tr>
+      {{/if}}
+      {{#each allCustomers}}
+    <tr>
+      <th scope="row">{{this.accNum}}</th>
+      <td>{{this.name}}</td>
+      <td>{{this.balance}}</td>
+      <td>{{this.status}}</td>
+      <td>
+            <a class="btn btn-warning" href="/edit/{{this.accNum}}/0">Edit</a>
+      </td>
+       <td>
+            <a class="btn btn-danger" href="/delete/{{this.accNum}}">Delete</a>
+      </td>
+      <td>
+            <a class="btn btn-info" href="/edit/{{this.accNum}}/1">Withdraw</a>
+      </td>
+       <td>
+            <a class="btn btn-success" href="/edit/{{this.accNum}}/2">Deposite</a>
+      </td>
+      <td>
+            <a class="btn btn-secondary" href="/edit/{{this.accNum}}/3">Change Status</a>
+      </td>
+      
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</section>
+{{>footer}}
