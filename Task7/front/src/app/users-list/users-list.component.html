@@ -1,0 +1,32 @@
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>UserName</th>
+      <th>Position</th>
+      <th>Role</th>
+      <th>Phone Num</th>
+      <th>Status</th>
+      <th>ProfileImg</th>
+      <th>uploadImage</th>
+      <th>Edit</th>
+      <th>change status</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.userName }}</td>
+      <td>{{ user.position }}</td>
+      <td>{{ user.type? 'Manager':'Employee' }}</td>
+      <td>{{ user.phoneNum }}</td>
+      <td>{{ user.status? 'Active':'Stopped' }}</td>
+      <td>{{ user.profileImg }}</td>
+      <td><a class="btn btn-primary" routerLink="/main/add-edit-user/{{user.id}}">Upload Img</a></td>
+      <td><a class="btn btn-info" routerLink="/main/add-edit-user/{{user.id}}">Edit</a></td>
+      <td><a class="btn btn-warning" (click)="changeUserStatus(user)">Change Status</a></td>
+      <td><a class="btn btn-danger" (click)="deleteUser(user.id)">Delete</a></td>
+    </tr>
+  </tbody>
+</table>

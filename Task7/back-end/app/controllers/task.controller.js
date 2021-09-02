@@ -49,7 +49,7 @@ const updateTask = async (req,res)=>{
 const deleteTask = async (req,res)=>{
     try{
         const task = await Task.findByIdAndDelete(req.params.id);
-        if(!task)
+        if(!task)/* */
         res.status(404).send(responseCreator(false, {}, 'Task Not Found'))
 
         const response = responseCreator(true, task, 'Task Deleted Successfully');

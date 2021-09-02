@@ -4,6 +4,7 @@ const responseCreator = require('../helpers/response.helper');
 
 const addUser = async (req, res)=>{
     try{
+        console.log('req.body',req.body);
         const user = new User(req.body);
         await user.save();
         const response = responseCreator(true, user, 'User Registerd Successfully');
@@ -31,13 +32,6 @@ const login = async (req,res)=>{
     }
 }
 
-const activate = async (req,res)=>{
-
-}
-
-const deactivate = async (req,res)=>{
-
-}
 
 const logout = async (req,res)=>{
     try{
@@ -84,7 +78,7 @@ const updateUser = async (req,res)=>{
         res.status(200).send(response);
     }
     catch(e){
-        const response = responseCreator(false, e.message, 'Error Updting User');
+        const response = responseCreator(false, e.message, 'Error Updating User');
         res.status(500).send(response)
     }
 }
@@ -135,10 +129,14 @@ const employeeTasks = async (req,res)=>{
     }
 }
 
-const deactivateUser = async (req,res)=>{
+const changeUserStatus = async (req,res)=>{
+    console.log('req.body', req.body);
+
     try{
+        console.log('req.body', req.body);
+
         const user = await  User.findOne({_id:req.params.id});
-        user.status = false;
+        user.status = req.body.status;
         await user.save();
         const response = responseCreator(true, user, 'Employee Decativated Successfully');
         res.status(200).send(response)
@@ -174,6 +172,6 @@ module.exports = {
     getAllUsers,
     userTasks,
     employeeTasks,
-    deactivateUser,
+    changeUserStatus,
     uploadImage
 }

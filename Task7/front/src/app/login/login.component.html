@@ -1,0 +1,31 @@
+<section class="container my-5">
+  <form class="form-group" [formGroup]="loginForm" (ngSubmit)="login()" #formNgForm="ngForm">
+    <div class="mb-3">
+      <input type="text" class="form-control" formControlName="userName" placeholder="userName">
+      <div class="text-danger" *ngIf="formNgForm.submitted&&loginForm.controls.userName?.touched && loginForm.controls.userName?.errors?.required">
+        UserName is required
+      </div>
+      <div class="text-danger" *ngIf="formNgForm.submitted&&loginForm.controls.userName?.touched && loginForm.controls.userName?.errors?.pattern">
+        UserName should be characters only
+      </div>
+    </div>
+    <div class="mb-3">
+      <input type="password" class="form-control" formControlName="password" placeholder="password">
+      <div class="text-danger" *ngIf="formNgForm.submitted&&loginForm.controls.password?.touched && loginForm.controls.password?.errors?.required">
+        Password is required
+      </div>
+      <div class="text-danger" *ngIf="formNgForm.submitted&&loginForm.controls.password?.touched && loginForm.controls.password?.errors?.pattern">
+        Password is not a valid format
+      </div>
+    </div>
+
+    <button class="btn btn-success" type="submit">
+      <ng-container *ngIf="!isLoading; else loading">
+        login
+      </ng-container>
+      <ng-template #loading>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </ng-template>
+      </button>
+  </form>
+</section>

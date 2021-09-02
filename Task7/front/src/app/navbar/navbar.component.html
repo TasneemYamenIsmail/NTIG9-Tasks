@@ -1,0 +1,27 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+
+      <ul *ngIf="authService.isLoggedIn" class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/main/users-list">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/main/tasks-list">Tasks</a>
+        </li>
+      </ul>
+      <!-- <form class="d-flex"> -->
+        <ng-container *ngIf="!authService.isLoggedIn; else loggedIn">
+          <button class="btn btn-outline-success" type="submit" (click)="login()">login</button>
+          <button class="btn btn-outline-info" type="submit" (click)="register()">register</button>
+
+        </ng-container>
+        <ng-template #loggedIn>
+          <button *ngIf="authService.isLoggedIn"
+          class="btn btn-outline-danger" type="submit" (click)="logout()">logout</button>
+        </ng-template>
+
+      <!-- </form> -->
+
+  </div>
+</nav>
