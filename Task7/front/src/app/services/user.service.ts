@@ -2,18 +2,24 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  public isManager$: Observable<boolean>= this.getMe().pipe(map((res:any)=>res.data.type))
 
   constructor(
     private http:HttpClient
   ) { }
 
-  getUsers():Observable<User[]>{
+  getUsers(){
     return this.http.get<User[]>('http://localhost:4000/getAllUsers');
+  }
+
+  getMe():Observable<User>{
+    return this.http.get<User>(`http://localhost:4000/me`)
   }
 
   getUserById(userId:string):Observable<User>{
@@ -29,8 +35,10 @@ export class UserService {
   }
 
   changeUserStatus(userId:string, status:boolean){
-    console.log('status::', status);
-
     return this.http.post(`http://localhost:4000/changeStatus/${userId}`,{status})
+  }
+
+  upload(fileData:any){
+    return this.http.post(`http://localhost:4000/upload`,fileData)
   }
 }

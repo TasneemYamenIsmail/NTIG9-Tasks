@@ -1,1 +1,56 @@
-<p>tasks-list works!</p>
+<div class="container-fluid">
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>Type</th>
+        <th>DueDate</th>
+        <th>Description</th>
+        <ng-container *ngIf="!(isManager$|async);">
+          <th>Add Note</th>
+          <th>Add Status</th>
+        </ng-container>
+        <th>EmployeeId</th>
+        <th>managerId</th>
+        <th>note</th>
+        <th>statues</th>
+        <th>View</th>
+
+        <ng-container *ngIf="(isManager$|async)">
+          <th>Edit</th>
+        <th>Assign Employee</th>
+        <th>Delete</th>
+        </ng-container>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task._id }}</td>
+        <td>{{ task.name }}</td>
+        <td>{{ task.type }}</td>
+        <td>{{ task.dueDate|date}}</td>
+        <td>{{ task.description }}</td>
+        <ng-container *ngIf="!(isManager$|async)">
+          <td><textarea type="text"  class="form-control" [(ngModel)]="task.note"></textarea>
+            <button class="btn btn-success btn-sm" (click)="addNote(task.note,task._id)">add</button></td>
+          <td><textarea type="text" class="form-control" [(ngModel)]="task.status"></textarea>
+            <button class="btn btn-success btn-sm" (click)="addStatus(task.status,task._id)">add</button></td>
+        </ng-container>
+        <td>{{ task.employeeId }}</td>
+        <td>{{ task.managerId }}</td>
+        <td>{{task.note}}</td>
+        <td>{{task.status}}</td>
+        <td><a class="btn btn-success" routerLink="/main/single-task/{{task._id}}">View task</a></td>
+
+        <ng-container *ngIf="(isManager$|async)">
+          <td><a class="btn btn-info" routerLink="/main/edit-task/{{task._id}}">Edit</a></td>
+          <td><a class="btn btn-primary" (click)="assignEmployee(task._id)">Assign Employee</a></td>
+          <td><a class="btn btn-danger" (click)="deleteTask(task._id)">Delete</a></td>
+      </ng-container>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -17,6 +17,7 @@ router.get('/allTasks', auth, manager,taskController.getAllTasks ) //
 router.post('/assignTask/:id', auth, manager, taskController.assignTask );
 
 router.get('/employeeTasks', auth, employee, userController.employeeTasks );
+
 router.post('/task/addNote/:id', auth, employee, taskController.addNote );
 router.post('/task/addStatus/:id', auth, employee, taskController.addStatus );
 

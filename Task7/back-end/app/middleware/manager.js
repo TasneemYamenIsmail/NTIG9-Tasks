@@ -14,7 +14,6 @@ const manager = async function (req, res, next) {
 
         const validAction = activeUser.type;
    
-        console.log('activateUser::', activeUser);
         if(!validAction){
             throw new Error('Manager is not allowed to continue this action')
         }

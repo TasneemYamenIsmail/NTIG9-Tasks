@@ -13,6 +13,7 @@ router.post('/login',controller.login );
 router.post('/changeStatus/:id', auth, manager,controller.changeUserStatus );
 
 router.post('/logout', auth, controller.logout );
+router.get('/me', auth, controller.me );
 router.get('/user/:id', auth, manager, controller.getUser ); 
 router.patch('/update/:id', auth, manager, controller.updateUser ); 
 router.delete('/delete/:id', auth, manager, controller.deleteUser );

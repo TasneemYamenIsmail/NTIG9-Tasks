@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const validator = require('validator')
 
 const userSchema = mongoose.Schema({
     userName:{
@@ -54,6 +55,7 @@ const userSchema = mongoose.Schema({
 }, {timestaps: true,
     toJSON: {virtuals: true}
 });
+
 userSchema.virtual('employeeTasks', {
     ref:'Task',
     localField:"_id",
@@ -88,13 +90,6 @@ userSchema.methods.generateToken = async function () {
     await user.save()
     return token
 }
-
-
-// userSchema.virtual('managerTasks', {
-//     ref:'Task',
-//     localField:"_id",
-//     foreignField:"managerId"
-// })
 
 const User = mongoose.model('User',userSchema);
 module.exports = User;

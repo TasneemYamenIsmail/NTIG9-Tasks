@@ -4,7 +4,6 @@ const responseCreator = require('../helpers/response.helper');
 
 const addUser = async (req, res)=>{
     try{
-        console.log('req.body',req.body);
         const user = new User(req.body);
         await user.save();
         const response = responseCreator(true, user, 'User Registerd Successfully');
@@ -49,6 +48,14 @@ const logout = async (req,res)=>{
         const response = responseCreator(false, e.message, 'LogOut Error');
         res.status(500).send(response)
     }
+}
+
+const me = async (req,res)=>{
+    res.status(200).send({
+        apiStatus: true,
+        data: req.user,
+        message: "data featched"
+    })        
 }
 
 const getUser = async (req,res)=>{
@@ -130,10 +137,8 @@ const employeeTasks = async (req,res)=>{
 }
 
 const changeUserStatus = async (req,res)=>{
-    console.log('req.body', req.body);
 
     try{
-        console.log('req.body', req.body);
 
         const user = await  User.findOne({_id:req.params.id});
         user.status = req.body.status;
@@ -149,11 +154,10 @@ const changeUserStatus = async (req,res)=>{
 
 const uploadImage = async (req,res)=>{
     try{
-        console.log('req.file.path:',req.file.path);
-        req.user.img = req.file.path
+        req.user.profileImg = req.file.filename
         await req.user.save();
 
-        const response = responseCreator(true, req.user.img, 'Profile Image uploaedd Successfully');
+        const response = responseCreator(true, req.user.profileImg, 'Profile Image uploaedd Successfully');
         res.status(200).send(response)
     }
     catch(e) {
@@ -173,5 +177,6 @@ module.exports = {
     userTasks,
     employeeTasks,
     changeUserStatus,
-    uploadImage
+    uploadImage,
+    me
 }

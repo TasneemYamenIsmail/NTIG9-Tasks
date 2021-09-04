@@ -1,0 +1,53 @@
+<section class="container my-5">
+  <form class="form-group" [formGroup]="taskForm" (ngSubmit)="handleSubmit()" #formNgForm="ngForm">
+    <div class="mb-3">
+      <input type="text" class="form-control" formControlName="name" placeholder="name">
+      <div class="text-danger" *ngIf="formNgForm.submitted&&taskForm.controls.name?.touched && taskForm.controls.name?.errors?.required">
+        Name is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <input type="text" class="form-control" formControlName="type" placeholder="type">
+      <div class="text-danger" *ngIf="formNgForm.submitted&&taskForm.controls.type?.touched && taskForm.controls.type?.errors?.required">
+        Type is required
+      </div>
+    </div>
+
+
+    <div class="mb-3">
+      <input type="date" class="form-control" formControlName="dueDate" placeholder="dueDate">
+      <div class="text-danger" *ngIf="formNgForm.submitted&&taskForm.controls.dueDate?.touched && taskForm.controls.dueDate?.errors?.required">
+        Due Date is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <select class="form-select" class="form-control" formControlName="employeeId">
+        <option value=null disabled>Select Type</option>
+        <option *ngFor="let option of employees" [value]="option.id">{{option.name}}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <textarea type="text" class="form-control" formControlName="description" placeholder="description"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <input type="text" class="form-control" formControlName="status" placeholder="status">
+    </div>
+
+    <div class="mb-3">
+      <input type="text" class="form-control" formControlName="note" placeholder="note">
+    </div>
+
+    <button class="btn btn-success" type="submit">
+      <ng-container *ngIf="!isLoading; else loading">
+        {{isEditView?'Edit':'Add'}}
+      </ng-container>
+      <ng-template #loading>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </ng-template>
+      </button>
+  </form>
+</section>

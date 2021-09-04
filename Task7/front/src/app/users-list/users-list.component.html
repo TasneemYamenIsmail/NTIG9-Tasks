@@ -1,32 +1,38 @@
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>UserName</th>
-      <th>Position</th>
-      <th>Role</th>
-      <th>Phone Num</th>
-      <th>Status</th>
-      <th>ProfileImg</th>
-      <th>uploadImage</th>
-      <th>Edit</th>
-      <th>change status</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.id }}</td>
-      <td>{{ user.userName }}</td>
-      <td>{{ user.position }}</td>
-      <td>{{ user.type? 'Manager':'Employee' }}</td>
-      <td>{{ user.phoneNum }}</td>
-      <td>{{ user.status? 'Active':'Stopped' }}</td>
-      <td>{{ user.profileImg }}</td>
-      <td><a class="btn btn-primary" routerLink="/main/add-edit-user/{{user.id}}">Upload Img</a></td>
-      <td><a class="btn btn-info" routerLink="/main/add-edit-user/{{user.id}}">Edit</a></td>
-      <td><a class="btn btn-warning" (click)="changeUserStatus(user)">Change Status</a></td>
-      <td><a class="btn btn-danger" (click)="deleteUser(user.id)">Delete</a></td>
-    </tr>
-  </tbody>
-</table>
+
+  <a class="btn btn-primary my-3" routerLink="/main/add-employee">Add Employee</a>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>UserName</th>
+        <th>Position</th>
+        <th>Role</th>
+        <th>Phone Num</th>
+        <th>Status</th>
+        <th>ProfileImg</th>
+        <!-- <th>uploadImage</th> -->
+        <th>Edit</th>
+        <th>View User</th>
+        <th>change status</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.userName }}</td>
+        <td>{{ user.position }}</td>
+        <td>{{ user.type? 'Manager':'Employee' }}</td>
+        <td>{{ user.phoneNum }}</td>
+        <td>{{ user.status? 'Active':'Stopped' }}</td>
+        <td><img src="assets/uploads/{{user.profileImg}}" width=75></td>
+        <!-- <td>
+          <input type="file" class="custom-file-input" id="customFile" (change)="handleUpload($event)">
+        </td> -->
+        <td><a class="btn btn-info" routerLink="/main/edit-user/{{user.id}}">Edit</a></td>
+        <td><a class="btn btn-success" routerLink="/main/single-user/{{user.id}}">View User</a></td>
+        <td><a class="btn btn-warning" (click)="changeUserStatus(user)">Change Status</a></td>
+        <td><a class="btn btn-danger" (click)="deleteUser(user.id)">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>

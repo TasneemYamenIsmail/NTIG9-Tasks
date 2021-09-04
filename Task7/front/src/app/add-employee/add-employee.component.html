@@ -1,0 +1,42 @@
+<section class="container my-5">
+  <form class="form-group" [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()" #formNgForm="ngForm">
+    <div class="mb-3">
+      <input type="text" class="form-control" formControlName="userName" placeholder="userName">
+      <div class="text-danger" *ngIf="formNgForm.submitted&&addEmployeeForm.controls.userName?.touched && addEmployeeForm.controls.userName?.errors?.required">
+        UserName is required
+      </div>
+      <div class="text-danger" *ngIf="formNgForm.submitted&&addEmployeeForm.controls.userName?.touched && addEmployeeForm.controls.userName?.errors?.pattern">
+        UserName should be characters only
+      </div>
+    </div>
+    <div class="mb-3">
+      <input type="password" class="form-control" formControlName="password" placeholder="password">
+      <div class="text-danger" *ngIf="formNgForm.submitted&&addEmployeeForm.controls.password?.touched && addEmployeeForm.controls.password?.errors?.required">
+        Password is required
+      </div>
+      <div class="text-danger" *ngIf="formNgForm.submitted&&addEmployeeForm.controls.password?.touched && addEmployeeForm.controls.password?.errors?.pattern">
+        Password is not a valid format
+      </div>
+    </div>
+    <div class="mb-3">
+      <input type="text" class="form-control" formControlName="phoneNum" placeholder="phoneNum">
+      <div class="text-danger" *ngIf="formNgForm.submitted&&addEmployeeForm.controls.phoneNum?.touched && addEmployeeForm.controls.phoneNum?.errors?.pattern">
+        Phone Number is not a valid format
+      </div>
+    </div>
+    <div class="mb-3">
+      <input type="text" class="form-control" formControlName="position" placeholder="position">
+      <div class="text-danger" *ngIf="formNgForm.submitted&&addEmployeeForm.controls.position?.touched && addEmployeeForm.controls.position?.errors?.required">
+       Position is required
+      </div>
+    </div>
+    <button class="btn btn-success" type="submit">
+      <ng-container *ngIf="!isLoading; else loading">
+        Add Employee
+      </ng-container>
+      <ng-template #loading>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </ng-template>
+      </button>
+  </form>
+</section>

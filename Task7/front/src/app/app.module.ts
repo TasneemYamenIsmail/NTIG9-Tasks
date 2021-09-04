@@ -16,6 +16,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {DataTablesModule} from 'angular-datatables';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { AddEditTaskComponent } from './add-edit-task/add-edit-task.component';
+import { ErrorComponent } from './error/error.component';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     SingleTaskComponent,
     FooterComponent,
     NavbarComponent,
-    EditUserComponent
+    EditUserComponent,
+    AddEditTaskComponent,
+    ErrorComponent,
+    AddEmployeeComponent
   ],
   imports: [
     BrowserModule,

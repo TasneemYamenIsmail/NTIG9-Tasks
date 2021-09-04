@@ -28,7 +28,7 @@ const taskSchema = mongoose.Schema({
     employeeId:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"User",
-        required:true
+        default:null
     },
     managerId:{
         type: mongoose.Schema.Types.ObjectId,
@@ -43,14 +43,22 @@ const taskSchema = mongoose.Schema({
             }
         }
     ],
+    status:{
+        type: String,
+        default:''
+    },
     notes:[
         {
             note:{
                 type: String,
                 default:''
             }
-        }
-    ]
+        },
+    ],
+    note:{
+        type: String,
+        default:''
+    },
 })
 
 const Task = mongoose.model('Task',taskSchema);

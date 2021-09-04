@@ -1,3 +1,5 @@
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./single-user.component.scss']
 })
 export class SingleUserComponent implements OnInit {
+  userId = this.activatedRoute.snapshot.params.id
+  user:any;
 
-  constructor() { }
+  constructor(
+    private userService:UserService,
+    private activatedRoute:ActivatedRoute,
+  ) { }
 
   ngOnInit() {
+    this.userService.getUserById(this.userId).subscribe((res:any)=>{
+      const user= res.data
+      console.log('user:',user);
+      this.user= user
+    })
   }
+
 
 }

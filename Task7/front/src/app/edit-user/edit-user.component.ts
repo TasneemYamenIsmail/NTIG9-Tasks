@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditUserComponent implements OnInit {
 
-  userId= this.activatedRoute.snapshot.params.id
+  userId = this.activatedRoute.snapshot.params.id
 
   registerForm:FormGroup=this.fb.group({
     userName:['',[Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]],

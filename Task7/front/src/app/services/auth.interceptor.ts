@@ -17,7 +17,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler){
     let token = localStorage.getItem('myToken')
-    console.log('token:',token);
 
     if(token){
 

@@ -6,6 +6,13 @@ const responseCreator = require('../helpers/response.helper');
 const addTask = async (req,res)=>{
     try{
         const task = new Task(req.body);
+        task.managerId=req.user.id;
+        if(task.status){
+            task.statues=[].concat({status});
+        }
+        if(task.note){
+            task.notes=[].concat({note});
+        }
         await task.save();
         const response = responseCreator(true, task, 'Task Created Successfully');
         res.status(200).send(response);
@@ -33,7 +40,23 @@ const getTask = async (req,res)=>{
 
 const updateTask = async (req,res)=>{
     try{
-        const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new:true, runValidators:true});
+        const taskValue = req.body;
+        const status= taskValue.status;
+        const note= taskValue.note;
+
+        if(!!taskValue.statuses && status){
+            taskValue.statues=[].concat({status});
+        }
+       else if(status){
+            taskValue.statues=taskValue.statues.concat({status});
+        }
+        if(!!taskValue.note && note){
+            taskValue.notes=[].concat({note});
+        }
+        else if(note){
+            taskValue.notes=taskValue.notes.concat({note});
+        }
+        const task = await Task.findByIdAndUpdate(req.params.id, taskValue, {new:true, runValidators:true});
         if(!task)
         res.status(404).send(responseCreator(false, {}, 'Task Not Found'))
 
@@ -41,7 +64,7 @@ const updateTask = async (req,res)=>{
         res.status(200).send(response);
     }
     catch(e){
-        const response = responseCreator(false, e.message, 'Error Updting Task');
+        const response = responseCreator(false, e.message, 'Error Updating Task');
         res.status(500).send(response)
     }
 }
@@ -80,7 +103,6 @@ const assignTask = async (req,res)=>{
 
         const employeeId= req.body.id;
         task.employeeId = employeeId;
-        console.log('employeeId',employeeId);
         await task.save();
         const response = responseCreator(true, task, 'Employee assigned to task Successfully');
         res.status(200).send(response);
@@ -96,7 +118,8 @@ const addNote = async (req,res)=>{
         const task = await Task.findOne({_id:req.params.id});
 
         const note= req.body.note;
-        task.notes = task.statuses.concat({note});;
+        task.notes = task.notes.concat({note});
+        task.note=note
         await task.save();
         const response = responseCreator(true, task, 'Note added to task Successfully');
         res.status(200).send(response);
@@ -112,7 +135,8 @@ const addStatus = async (req,res)=>{
         const task = await Task.findOne({_id:req.params.id});
 
         const status= req.body.status;
-        task.statuses = task.statuses.concat({status});;
+        task.statuses = task.statuses.concat({status});
+        task.status=status
         await task.save();
 
         const response = responseCreator(true, task, 'Status added to task Successfully');

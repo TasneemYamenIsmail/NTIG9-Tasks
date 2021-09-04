@@ -1,18 +1,21 @@
-import { User } from './../models/user.model';
 import { AuthService } from './../services/auth.service';
+import { User } from './../models/user.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-add-employee',
+  templateUrl: './add-employee.component.html',
+  styleUrls: ['./add-employee.component.scss']
 })
-export class LoginComponent implements OnInit {
-  loginForm:FormGroup=this.fb.group({
+export class AddEmployeeComponent implements OnInit {
+  addEmployeeForm:FormGroup=this.fb.group({
     userName:['',[Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]],
     password:['',[Validators.required, Validators.pattern((/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/))]],
+    phoneNum:['', [Validators.pattern(/^01[0125][0-9]{8}$/)]],
+    position:['',[Validators.required]],
   })
   isLoading= false;
 
@@ -28,25 +31,18 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  public login():void{
+  public addEmployee():void{
 
-   if(this.loginForm.valid&& !this.isLoading){
+   if(this.addEmployeeForm.valid&& !this.isLoading){
      this.isLoading=true
-    const user = this.loginForm.getRawValue();
+    const user = new User(this.addEmployeeForm.getRawValue());
+    console.log('console:',user);
 
-    this.authService.login(user).subscribe(
+    this.authService.register(user).subscribe(
       (res)=>{
         console.log('res.data:',res);
         this.isLoading=false
-        this.authService.isLoggedIn = true
-        localStorage.setItem('myToken', res.data.token)
-        console.log('res.data.type',res.data.type);
-
-        if(res.data.user.type)
-          this.router.navigate(['/main/users-list'])
-        else{
-          this.router.navigate(['/main/tasks-list'])
-        }
+        this.router.navigate(['/main/users-list'])
       },
       (err)=>{
         console.log('Error',err);
@@ -60,9 +56,9 @@ export class LoginComponent implements OnInit {
    }
    else{
      this.isLoading=false
-     this.loginForm.markAsDirty();
+     this.addEmployeeForm.markAsDirty();
+     console.log('!valid:');
    }
 
   }
-
 }

@@ -13,6 +13,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   dtOptions: DataTables.Settings = {};
   users:User[] = [];
+  file:any
 
   dtTrigger: Subject<any> = new Subject<any>();
   constructor(
@@ -24,7 +25,8 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-      destroy: true
+      destroy: true,
+      scrollX:true
     };
    this.getUsers();
   }
@@ -35,7 +37,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.userService.changeUserStatus(user.id as string, user.status).subscribe(
       res=>{
         console.log('res:',res);
-        debugger;
         this.getUsers();
       }
     )
@@ -45,7 +46,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.userService.deleteUser(userId as string).subscribe(
       res=>{
         console.log('res:',res);
-        debugger;
         this.getUsers();
       }
     )
@@ -55,8 +55,22 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.userService.getUsers()
     .subscribe(data => {
       this.users = (data as any).data;
+      console.log('users:',this.users);
+
       this.dtTrigger.next();
     });
+  }
+
+  handleUpload(event:any){
+    this.file = event.target.files[0]
+    console.log(this.file)
+    const myData= new FormData()
+    myData.append('file', this.file,this.file.name)
+    this.userService.upload(myData).subscribe(result=>{
+      console.log(result);
+      this.getUsers();
+
+    })
   }
 
   ngOnDestroy(): void {

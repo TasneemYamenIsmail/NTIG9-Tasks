@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const auth = async function (req, res, next) {
 
     try{
-        console.log('req.bodyyyyyyy:',req.body);
         const token = req.header('Authorization').replace('Bearer ','');
   
         const decodedToken = jwt.verify(token, process.env.JWTSECURITY)
@@ -14,7 +13,6 @@ const auth = async function (req, res, next) {
         
         req.user = user
         req.token = token
-        console.log('user:',user);
         next();
     }
     catch(e){
