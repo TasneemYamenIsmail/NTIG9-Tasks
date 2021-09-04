@@ -13,11 +13,11 @@ import { Task } from '../models';
 export class TasksListComponent implements OnInit, OnDestroy {
 
  public isManager$ = this.userService.isManager$;
-  dtOptions: DataTables.Settings = {};
+  dtOptionsTasks: DataTables.Settings = {};
   tasks:Task[] = [];
   file:any
 
-  dtTrigger: Subject<any> = new Subject<any>();
+  dtTriggerTasks: Subject<any> = new Subject<any>();
   constructor(
     private taskService:TaskService,
     private userService:UserService,
@@ -25,7 +25,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.dtOptions = {
+    this.dtOptionsTasks = {
       pagingType: 'full_numbers',
       pageLength: 10,
       destroy: true,
@@ -60,7 +60,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+    this.dtTriggerTasks.unsubscribe();
   }
 
   assignEmployee(taskId:string|undefined){
@@ -82,7 +82,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
     .subscribe(data => {
       this.tasks = (data as any).data;
 
-      this.dtTrigger.next();
+      this.dtTriggerTasks.next();
     });
   }
 
@@ -91,7 +91,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
     .subscribe(data => {
       this.tasks = (data as any).data;
 
-      this.dtTrigger.next();
+      this.dtTriggerTasks.next();
     });
   }
 

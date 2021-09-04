@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+<a class="btn btn-primary my-3" routerLink="/main/add-task">Add Task</a>
+  <table datatable [dtOptions]="dtOptionsTasks" [dtTrigger]="dtTriggerTasks" class="row-border hover">
     <thead>
       <tr>
         <th>ID</th>
@@ -7,21 +7,17 @@
         <th>Type</th>
         <th>DueDate</th>
         <th>Description</th>
-        <ng-container *ngIf="!(isManager$|async);">
-          <th>Add Note</th>
-          <th>Add Status</th>
-        </ng-container>
+        <th *ngIf="!(isManager$|async)">Add Note</th>
+        <th *ngIf="!(isManager$|async)">Add Status</th>
         <th>EmployeeId</th>
         <th>managerId</th>
         <th>note</th>
         <th>statues</th>
         <th>View</th>
 
-        <ng-container *ngIf="(isManager$|async)">
-          <th>Edit</th>
-        <th>Assign Employee</th>
-        <th>Delete</th>
-        </ng-container>
+        <th *ngIf="(isManager$|async)">Edit</th>
+        <th *ngIf="(isManager$|async)">Assign Employee</th>
+        <th *ngIf="(isManager$|async)">Delete</th>
 
       </tr>
     </thead>
@@ -32,25 +28,20 @@
         <td>{{ task.type }}</td>
         <td>{{ task.dueDate|date}}</td>
         <td>{{ task.description }}</td>
-        <ng-container *ngIf="!(isManager$|async)">
-          <td><textarea type="text"  class="form-control" [(ngModel)]="task.note"></textarea>
-            <button class="btn btn-success btn-sm" (click)="addNote(task.note,task._id)">add</button></td>
-          <td><textarea type="text" class="form-control" [(ngModel)]="task.status"></textarea>
-            <button class="btn btn-success btn-sm" (click)="addStatus(task.status,task._id)">add</button></td>
-        </ng-container>
+        <td  *ngIf="!(isManager$|async)"><textarea type="text"  class="form-control" [(ngModel)]="task.note"></textarea>
+          <button class="btn btn-success btn-sm" (click)="addNote(task.note,task._id)">add</button></td>
+        <td  *ngIf="!(isManager$|async)"><textarea type="text" class="form-control" [(ngModel)]="task.status"></textarea>
+          <button class="btn btn-success btn-sm" (click)="addStatus(task.status,task._id)">add</button></td>
         <td>{{ task.employeeId }}</td>
         <td>{{ task.managerId }}</td>
         <td>{{task.note}}</td>
         <td>{{task.status}}</td>
         <td><a class="btn btn-success" routerLink="/main/single-task/{{task._id}}">View task</a></td>
 
-        <ng-container *ngIf="(isManager$|async)">
-          <td><a class="btn btn-info" routerLink="/main/edit-task/{{task._id}}">Edit</a></td>
-          <td><a class="btn btn-primary" (click)="assignEmployee(task._id)">Assign Employee</a></td>
-          <td><a class="btn btn-danger" (click)="deleteTask(task._id)">Delete</a></td>
-      </ng-container>
+        <td  *ngIf="(isManager$|async)"><a class="btn btn-info" routerLink="/main/edit-task/{{task._id}}">Edit</a></td>
+        <td *ngIf="(isManager$|async)"><a class="btn btn-primary" (click)="assignEmployee(task._id)">Assign Employee</a></td>
+        <td *ngIf="(isManager$|async)"><a class="btn btn-danger" (click)="deleteTask(task._id)">Delete</a></td>
 
       </tr>
     </tbody>
   </table>
-</div>

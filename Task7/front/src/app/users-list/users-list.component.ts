@@ -26,7 +26,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       pagingType: 'full_numbers',
       pageLength: 10,
       destroy: true,
-      scrollX:true
+      scrollX: true
     };
    this.getUsers();
   }
