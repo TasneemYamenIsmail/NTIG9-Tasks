@@ -36,11 +36,9 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(user).subscribe(
       (res)=>{
-        console.log('res.data:',res);
         this.isLoading=false
         this.authService.isLoggedIn = true
         localStorage.setItem('myToken', res.data.token)
-        console.log('res.data.type',res.data.type);
 
         if(res.data.user.type)
           this.router.navigate(['/main/users-list'])
@@ -49,11 +47,9 @@ export class LoginComponent implements OnInit {
         }
       },
       (err)=>{
-        console.log('Error',err);
         this.isLoading=false
       },
       ()=>{
-        console.log('Done');
         this.isLoading=false
       }
     )

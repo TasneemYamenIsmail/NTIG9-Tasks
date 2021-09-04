@@ -18,16 +18,7 @@ export class NavbarComponent implements OnInit{
 
      }
 
-    ngOnInit(){
-    this.userService.isManager$.subscribe(isManager=>{
-      console.log('isManager:', isManager);
-    })
-
-    this.userService.getMe().subscribe(me=>{
-      console.log('meee:',me);
-
-    })
-    }
+    ngOnInit(){}
     login(){
       this.router.navigate(['login'])
     }
@@ -37,7 +28,6 @@ export class NavbarComponent implements OnInit{
 
     logout() {
       this.authService.logout().subscribe(_=>{
-        console.log('logout:', _);
         this.authService.isLoggedIn = false
         this.router.navigate(['login'])
         localStorage.removeItem('myToken');

@@ -51,13 +51,10 @@ export class AddEditTaskComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.assign);
-console.log(this.activatedRoute.snapshot.queryParams.assign);
 
     if(this.isEditView){
       this.taskService.getTaskById(this.taskId).subscribe((res:any)=>{
         const task= res.data
-        // this.employeeId = task.employeeId;
 
         this.taskForm.patchValue({
           name:task.name,
@@ -70,9 +67,6 @@ console.log(this.activatedRoute.snapshot.queryParams.assign);
           note:task.note,
         });
         if(this.assign){
-          console.log(
-            'assign:', this.assign
-          );
 
           this.taskForm.disable()
           this.taskForm.controls.employeeId.enable()
@@ -95,12 +89,10 @@ console.log(this.activatedRoute.snapshot.queryParams.assign);
      else{
        this.addTask(task);
      }
-    console.log('console:',task);
    }
    else{
      this.isLoading=false
      this.taskForm.markAsDirty();
-     console.log('!valid:');
    }
 
   }
@@ -108,16 +100,13 @@ console.log(this.activatedRoute.snapshot.queryParams.assign);
   addTask(task:Partial<Task>){
     this.taskService.addTask(task).subscribe(
       (res)=>{
-        console.log('res.data:',res);
         this.isLoading=false
         this.router.navigate(['/main/tasks-list'])
       },
       (err)=>{
-        console.log('Error',err);
         this.isLoading=false
       },
       ()=>{
-        console.log('Done');
         this.isLoading=false
       }
     )
@@ -126,17 +115,14 @@ console.log(this.activatedRoute.snapshot.queryParams.assign);
   updateTask(task:Partial<Task>){
     this.taskService.updateTask(this.taskId,task).subscribe(
       (res)=>{
-        console.log('res.data:',res);
         this.isLoading=false
         this.router.navigate(['/main/tasks-list'])
 
       },
       (err)=>{
-        console.log('Error',err);
         this.isLoading=false
       },
       ()=>{
-        console.log('Done');
         this.isLoading=false
       }
     )
@@ -154,7 +140,6 @@ console.log(this.activatedRoute.snapshot.queryParams.assign);
         })
       }))
     .subscribe(employees=>{
-      console.log('employee::', employees);
 
       this.employees=employees
     })

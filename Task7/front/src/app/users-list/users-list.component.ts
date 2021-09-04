@@ -36,7 +36,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
     user.status=!user.status;
     this.userService.changeUserStatus(user.id as string, user.status).subscribe(
       res=>{
-        console.log('res:',res);
         this.getUsers();
       }
     )
@@ -45,7 +44,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
   deleteUser(userId:string|undefined){
     this.userService.deleteUser(userId as string).subscribe(
       res=>{
-        console.log('res:',res);
         this.getUsers();
       }
     )
@@ -55,7 +53,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.userService.getUsers()
     .subscribe(data => {
       this.users = (data as any).data;
-      console.log('users:',this.users);
 
       this.dtTrigger.next();
     });
@@ -63,11 +60,9 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   handleUpload(event:any){
     this.file = event.target.files[0]
-    console.log(this.file)
     const myData= new FormData()
     myData.append('file', this.file,this.file.name)
     this.userService.upload(myData).subscribe(result=>{
-      console.log(result);
       this.getUsers();
 
     })

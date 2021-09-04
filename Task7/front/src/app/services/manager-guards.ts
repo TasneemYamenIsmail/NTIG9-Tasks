@@ -16,7 +16,6 @@ export class ManagerGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean> {
     const isManager= await this.userService.isManager$.pipe(take(1)).toPromise();
-    console.log('isManagererrererer:', isManager);
        if(!isManager){
           this._router.navigate(['error'])
           return false

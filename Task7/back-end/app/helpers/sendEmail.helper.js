@@ -16,7 +16,6 @@ const sendActivationEmail = (reciverEmail, textEmail)=>{
         transporter.sendMail(mailOptions)
     }
     catch(e){
-        console.log(e)
     }
     
 }

@@ -39,7 +39,6 @@ export class TasksListComponent implements OnInit, OnDestroy {
   deletetask(taskId:string|undefined){
     this.taskService.deleteTask(taskId as string).subscribe(
       res=>{
-        console.log('res:',res);
         this.getTasks();
       }
     )
@@ -48,7 +47,6 @@ export class TasksListComponent implements OnInit, OnDestroy {
   getTasks(){
 
     this.isManager$.subscribe(isManager=>{
-      console.log('isManager',isManager);
 
       if(isManager){
         this.getManagerTasks();
@@ -74,7 +72,6 @@ export class TasksListComponent implements OnInit, OnDestroy {
   deleteTask(taskId:string|undefined){
     this.taskService.deleteTask(taskId as string).subscribe(
       res=>{
-        console.log('res:',res);
         this.getTasks();
       }
     )
@@ -84,7 +81,6 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.taskService.getTasks()
     .subscribe(data => {
       this.tasks = (data as any).data;
-      console.log('tasks:',this.tasks);
 
       this.dtTrigger.next();
     });
@@ -94,7 +90,6 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.taskService.getEmployeeTasks()
     .subscribe(data => {
       this.tasks = (data as any).data;
-      console.log('tasks:',this.tasks);
 
       this.dtTrigger.next();
     });
@@ -104,7 +99,6 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.taskService.addNote(taskId, note)
     .subscribe(data => {
       this.tasks = (data as any).data;
-      console.log('tasks:',this.tasks);
       this.getEmployeeTasks();
     });
   }

@@ -36,20 +36,16 @@ export class AddEmployeeComponent implements OnInit {
    if(this.addEmployeeForm.valid&& !this.isLoading){
      this.isLoading=true
     const user = new User(this.addEmployeeForm.getRawValue());
-    console.log('console:',user);
 
     this.authService.register(user).subscribe(
       (res)=>{
-        console.log('res.data:',res);
         this.isLoading=false
         this.router.navigate(['/main/users-list'])
       },
       (err)=>{
-        console.log('Error',err);
         this.isLoading=false
       },
       ()=>{
-        console.log('Done');
         this.isLoading=false
       }
     )
@@ -57,7 +53,6 @@ export class AddEmployeeComponent implements OnInit {
    else{
      this.isLoading=false
      this.addEmployeeForm.markAsDirty();
-     console.log('!valid:');
    }
 
   }

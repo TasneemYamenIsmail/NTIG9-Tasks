@@ -18,7 +18,6 @@ export class SingleTaskComponent implements OnInit {
   ngOnInit() {
     this.taskService.getTaskById(this.taskId).subscribe((res:any)=>{
       const task= res.data
-      console.log('task:',task);
       this.task= task
     })
   }

@@ -35,11 +35,9 @@ export class EditUserComponent implements OnInit {
   ngOnInit() {
     if (this.userId){
 
-      console.log(this.userId);
 
       this.userService.getUserById(this.userId).subscribe((res:any)=>{
         const user= res.data
-        console.log('user:',user);
 
         this.registerForm.patchValue(user);
       })
@@ -51,7 +49,6 @@ export class EditUserComponent implements OnInit {
    if(this.registerForm.valid&& !this.isLoading){
      this.isLoading=true
     const user = new User(this.registerForm.getRawValue());
-    console.log('console:',user);
 
     this.userService.updateUser(this.userId, {
       userName:user.userName,
@@ -60,16 +57,13 @@ export class EditUserComponent implements OnInit {
       type:user.type
     }).subscribe(
       (res)=>{
-        console.log('res.data:',res);
         this.isLoading=false
         this.router.navigate(['/main/users-list'])
       },
       (err)=>{
-        console.log('Error',err);
         this.isLoading=false
       },
       ()=>{
-        console.log('Done');
         this.isLoading=false
       }
     )
@@ -77,7 +71,6 @@ export class EditUserComponent implements OnInit {
    else{
      this.isLoading=false
      this.registerForm.markAsDirty();
-     console.log('!valid:');
    }
 
   }

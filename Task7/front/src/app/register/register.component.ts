@@ -36,20 +36,16 @@ export class RegisterComponent implements OnInit {
    if(this.registerForm.valid&& !this.isLoading){
      this.isLoading=true
     const user = new User(this.registerForm.getRawValue());
-    console.log('console:',user);
 
     this.authService.register(user).subscribe(
       (res)=>{
-        console.log('res.data:',res);
         this.isLoading=false
         this.router.navigate(['/login'])
       },
       (err)=>{
-        console.log('Error',err);
         this.isLoading=false
       },
       ()=>{
-        console.log('Done');
         this.isLoading=false
       }
     )
@@ -57,7 +53,6 @@ export class RegisterComponent implements OnInit {
    else{
      this.isLoading=false
      this.registerForm.markAsDirty();
-     console.log('!valid:');
    }
 
   }

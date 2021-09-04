@@ -19,7 +19,6 @@ export class SingleUserComponent implements OnInit {
   ngOnInit() {
     this.userService.getUserById(this.userId).subscribe((res:any)=>{
       const user= res.data
-      console.log('user:',user);
       this.user= user
     })
   }
