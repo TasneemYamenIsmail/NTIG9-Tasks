@@ -31,21 +31,22 @@ functionalities:
 
 **register**
 **login**
-**/main/users-list** - for manager only
-    view all users
-    add new user
-    view one user
-    edit user
-    delete user
-    change user status
-**/main/tasks-list** - for employee gets only his tasks, for manager gets all tasks
-    view all tasks
-    add new task
-    view one task
-    edit task
-    delete task
-    assign employee to task
-    add note to task, ==> employee only
-    add status to task ==> employee only
-    
+**/main/users-list** => for manager only
+- view all users
+- add new user
+- view one user
+- edit user
+- delete user
+- change user status
+
+**/main/tasks-list** => for employee gets only his tasks, for manager gets all tasks
+- view all tasks
+- add new task
+- view one task
+- edit task
+- delete task
+- assign employee to task
+- add note to task, ==> employee only
+- add status to task ==> employee only
+
 **logout**
