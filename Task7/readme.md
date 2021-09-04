@@ -29,8 +29,10 @@ FrontEnd Port  http://localhost:4200/
 functionalities:
 ================
 
-**register**
-**login**
+**register** 
+
+**login** 
+
 **/main/users-list** => for manager only
 - view all users
 - add new user
